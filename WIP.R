@@ -59,7 +59,15 @@ for (i in 0:7)
   assign(paste0("test1",i), subset.data.frame(test1,test1$PH == i))
 }
 
-library(rpart)
+head(test11)
 
-install.packages("rpart")
-fit = rpart(FF~ . , data = train11,method="anova" , control=rpart.control(minsplit=2, cp=0.001)) 
+sub = rbind(data.frame(id = test10$id , FF = 4132) , data.frame(id = test11$id , FF = 37),
+            data.frame(id = test12$id , FF = 1343) , data.frame(id = test13$id , FF = 6855),
+            data.frame(id = test14$id , FF = 7374) , data.frame(id = test15$id , FF = 5018),
+            data.frame(id = test16$id , FF = 2968) , data.frame(id = test17$id , FF = 1400))
+
+View(sub)
+
+write.csv(sub,"sub.csv",row.names = FALSE)
+
+    
