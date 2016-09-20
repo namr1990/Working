@@ -21,7 +21,6 @@ print ("Welcome to Python!")
 
 # user defined function in Python
 
-
 def spam():
     eggs = 12
     return eggs
@@ -30,6 +29,8 @@ print (spam())
 
 #import libraries
 import pandas as pd
+import numpy as np
+
 
 #create vectors 
 a = [1,2,3,4]
@@ -39,6 +40,29 @@ b = ['a','b','d','e']
 
 a = pd.DataFrame(a) 
 b = pd.DataFrame(b) 
+
+#create dataframe in python
+
+df = pd.DataFrame({'A' : ['foo', 'bar', 'foo', 'bar','foo', 'bar', 'foo', 'foo'],
+                   'B' : ['one', 'one', 'two', 'three', 'two', 'two', 'one', 'three'],
+                   'C' : np.random.randn(8),
+                   'D' : np.random.randn(8)})
+
+
+df
+
+print (df.groupby(['A','B']).mean())
+
+
+#create a dataset in a single go
+df1 = pd.DataFrame(np.random.randn(6, 4),
+                   index=list('abcdef'),
+                   columns=list('ABCD'))
+
+
+df1
+df1['A']
+
 
 #concatenate two dataframes
 
@@ -79,6 +103,14 @@ train['string1'] = train.iloc[:,1].astype(str).str.cat(train.iloc[:,2].astype(st
 
 #Strip and Lower by apply function
 train['string1'] = train.iloc[:,4].apply(lambda x : x.strip().lower()) 
+
+#map function to create criteria and use criteria for further application
+
+criterion = train['City'].map(lambda x: x.startswith('D'))
+print (train[criterion])
+train[criterion & (train['Sales'] > 50)]
+
+train.loc[criterion & (train['Sales'] > 50), 'Item' : 'Sales']
 
 #define a function for an operation
 
